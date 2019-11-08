@@ -4,8 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "csvjson": "^5.1.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "request-promise-native": "^1.0.8",
+    "wiki-entity": "^0.4.3"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0"
+  }
 }
