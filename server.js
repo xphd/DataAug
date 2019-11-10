@@ -17,6 +17,6 @@ async function go() {
   //   await job2.getEntitiesByIds(store);
   //   console.log("Task 2 end");
   console.log("Task 3 begin");
-  job3.entityToCsv(store);
+  await job3.entityToCsv(store);
   console.log("Task 3 end");
 }
