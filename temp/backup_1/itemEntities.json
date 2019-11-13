@@ -528,8 +528,7 @@
           { "datatype": "wikibase-item", "value": "Q853735" }
         ]
       }
-    },
-    "SUM_P161_COUNT_P166": 16
+    }
   },
   "Q47703": {
     "id": "Q47703",
@@ -1123,8 +1122,7 @@
         "id": "P3803",
         "values": [{ "datatype": "wikibase-item", "value": "Q226528" }]
       }
-    },
-    "SUM_P161_COUNT_P166": 57
+    }
   },
   "Q202326": {
     "id": "Q202326",
@@ -1612,8 +1610,7 @@
         "id": "P6562",
         "values": [{ "datatype": "external-id", "value": "m5gUg-uDyRY" }]
       }
-    },
-    "SUM_P161_COUNT_P166": 51
+    }
   },
   "Q163872": {
     "id": "Q163872",
@@ -2322,8 +2319,7 @@
         "id": "P170",
         "values": [{ "datatype": "wikibase-item", "value": "Q25191" }]
       }
-    },
-    "SUM_P161_COUNT_P166": 34
+    }
   },
   "Q104123": {
     "id": "Q104123",
@@ -2962,7 +2958,6 @@
           { "datatype": "external-id", "value": "b00749bl" }
         ]
       }
-    },
-    "SUM_P161_COUNT_P166": 56
+    }
   }
 }

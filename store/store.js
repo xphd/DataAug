@@ -1,19 +1,20 @@
 // central, hub, bus, shared variables
 const store = {
-  isDev: true,
+  isDev: false,
   testJob1: false,
   testJob2: true,
   testJob3: false,
 
   col_selected: "title",
-
-  items: null, // names used in wikidata search
-
   key_word: "film", // could be used to filter searching results
 
-  map_item_to_id: new Map(), // results from task 1
+  items: null, // array, names used in wikidata search
 
-  map_id_to_entity: new Map(), // results from task 2
+  items_ids: {}, // {}, new Map(), // results from task 1
+
+  ids_entities: {}, //new Map(), // results from task 2
+
+  ids_properties: {},
 
   map_propertyId_to_entityIds: new Map(), // results from task 3
 

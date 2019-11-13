@@ -2,13 +2,13 @@ const fs = require("fs");
 const appRootPath = require("app-root-path");
 // save dynamic variable like map to "/temp" folder as json file or like
 
-function saveToTemp(map, name) {
+function saveToTemp(obj, name) {
   let path = appRootPath + "/temp/" + name + ".json";
-  let obj = {};
+  // let obj = {};
 
-  for (let [key, value] of map.entries()) {
-    obj[key] = value;
-  }
+  // for (let [key, value] of map.entries()) {
+  //   obj[key] = value;
+  // }
 
   let jsonContent = JSON.stringify(obj);
   //   console.log(jsonContent);

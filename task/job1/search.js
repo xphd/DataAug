@@ -5,15 +5,15 @@ const wikiSearch = require("./wikiSearch.js");
 function search(store) {
   let items = store.items;
   let chain = Promise.resolve();
-  items.forEach(name => {
+  items.forEach(item => {
     chain = chain.then(() => {
       return new Promise((fullfill, reject) => {
-        wikiSearch(store, name, fullfill, reject);
+        wikiSearch(store, item, fullfill, reject);
       });
     });
   });
   chain.then(() => {
-    utilities.saveToTemp(store.map_item_to_id, "item_to_id");
+    utilities.saveToTemp(store.items_ids, "items_ids");
   });
   return chain;
 }

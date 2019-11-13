@@ -8,7 +8,7 @@ let type = "item";
 
 function wikiSearch(store, item, fullfill, reject) {
   let key_word = store.key_word;
-  let map = store.map_item_to_id;
+  let items_ids = store.items_ids;
 
   let prefix = apiHost + apiPath + "?action=" + searchAction + "&format=json";
   let middle = "&language=" + language + "&type=" + type + "&limit=" + limit;
@@ -39,7 +39,8 @@ function wikiSearch(store, item, fullfill, reject) {
       }
       // let id = response["search"][0]["id"];
       // console.log(id);
-      map.set(item, id);
+      // map.set(item, id);
+      items_ids[item] = id;
       fullfill();
     })
     .catch(function(err) {
