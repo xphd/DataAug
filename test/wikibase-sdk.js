@@ -5,12 +5,18 @@ const wbk = require("wikibase-sdk")({
   sparqlEndpoint: "https://query.wikidata.org/sparql"
 });
 
+function isId(id) {
+  return /^(Q|P|L)[1-9][0-9]*$/.test(id);
+}
+
+console.log(isId("Qq"));
+
 // const url = wbk.searchEntities("Ingmar Bergman");
 
 // console.log(url);
 
 // const url = wbk.getEntities({
-//   ids: ["Q647268"],
+//   ids: ["Qqwqeqwr"],
 //   languages: ["en"], // returns all languages if not specified
 //   props: ["info", "claims", "labels"], // returns all data if not specified
 //   format: "json", // defaults to json
@@ -41,10 +47,10 @@ const wbk = require("wikibase-sdk")({
 //   redirections: false // defaults to true
 // });
 
-let urls = [
-  "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q163872%7CQ104123&format=json&languages=en&props=info%7Clabels%7Cclaims",
-  "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q172241&format=json&languages=en&props=info%7Clabels%7Cclaims"
-];
+// let urls = [
+//   "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q163872%7CQ104123&format=json&languages=en&props=info%7Clabels%7Cclaims",
+//   "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q172241&format=json&languages=en&props=info%7Clabels%7Cclaims"
+// ];
 
 // console.log(urls);
 
@@ -69,31 +75,31 @@ let urls = [
 //   });
 // });
 
-let chain = Promise.resolve();
-urls.forEach(url => {
-  console.log(url);
+// let chain = Promise.resolve();
+// urls.forEach(url => {
+//   console.log(url);
 
-  chain = chain.then(() => {
-    console.log("chain");
-    return new Promise((fullfill, reject) => {
-      fetch(url)
-        .then(response => response.json())
-        .then(wbk.parse.wd.entities)
-        .then(entitiesObj => {
-          for (let [key, value] of Object.entries(entitiesObj)) {
-          }
-          let entities = Object.values(entitiesObj);
-          entities.forEach(entity => {
-            // console.log(entity["id"]);
-            console.log(entity);
-          });
-          // console.log(entities); // do your thing with those entities data
-          // console.log("entities");
-          fullfill();
-        });
-    });
-  });
-});
+//   chain = chain.then(() => {
+//     console.log("chain");
+//     return new Promise((fullfill, reject) => {
+//       fetch(url)
+//         .then(response => response.json())
+//         .then(wbk.parse.wd.entities)
+//         .then(entitiesObj => {
+//           for (let [key, value] of Object.entries(entitiesObj)) {
+//           }
+//           let entities = Object.values(entitiesObj);
+//           entities.forEach(entity => {
+//             // console.log(entity["id"]);
+//             console.log(entity);
+//           });
+//           // console.log(entities); // do your thing with those entities data
+//           // console.log("entities");
+//           fullfill();
+//         });
+//     });
+//   });
+// });
 
 // chain.then(() => {
 //   console.log("work done");
