@@ -12,10 +12,12 @@
   "dependencies": {
     "app-root-path": "^3.0.0",
     "csvjson": "^5.1.0",
+    "node-fetch": "^2.6.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
     "request-promise-native": "^1.0.8",
-    "wiki-entity": "^0.4.3"
+    "wiki-entity": "^0.4.3",
+    "wikibase-sdk": "^7.1.6"
   },
   "devDependencies": {
     "babel-preset-env": "^1.7.0",

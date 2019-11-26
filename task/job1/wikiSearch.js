@@ -1,23 +1,24 @@
 const rp = require("request-promise");
-let apiHost = "www.wikidata.org";
-let apiPath = "/w/api.php";
-let searchAction = "wbsearchentities";
-let language = "en";
-let limit = 7;
-let type = "item";
+const wbk = require("wikibase-sdk")({
+  instance: "https://www.wikidata.org",
+  sparqlEndpoint: "https://query.wikidata.org/sparql"
+});
+
+// const language = "en"; // will default to 'en'
+// const limit = 5; // defaults to 20
+// const format = "json"; // defaults to json
 
 function wikiSearch(store, item, fullfill, reject) {
   let key_word = store.key_word;
   let items_ids = store.items_ids;
 
-  let prefix = apiHost + apiPath + "?action=" + searchAction + "&format=json";
-  let middle = "&language=" + language + "&type=" + type + "&limit=" + limit;
-  let suffix = "&search=" + encodeURIComponent(item);
-  let combinedUri = "https://" + prefix + middle + suffix;
+  // let search = item;
+  // const url = wbk.searchEntities(search, language, limit, format);
+  let url = wbk.searchEntities(item, "en", 5, "json");
+  console.log(url);
 
-  console.log(combinedUri);
   let requestOptions = {
-    uri: combinedUri,
+    uri: url,
     method: "GET",
     json: true
   };

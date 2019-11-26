@@ -1,6 +1,6 @@
 // central, hub, bus, shared variables
 const store = {
-  isDev: false,
+  isDev: true,
   testJob1: false,
   testJob2: true,
   testJob3: false,
@@ -8,9 +8,9 @@ const store = {
   col_selected: "title",
   key_word: "film", // could be used to filter searching results
 
-  items: null, // array, names used in wikidata search
+  items: ["The Dark Knight", "Pulp Fiction", "The Shawshank Redemption"], // [], names to search, obtained from the input CSV file
 
-  items_ids: {}, // {}, new Map(), // results from task 1
+  items_ids: {}, // {}, results from task 1, map items to wiki-ids
 
   ids_entities: {}, //new Map(), // results from task 2
 

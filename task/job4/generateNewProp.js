@@ -11,12 +11,12 @@ function generateNewProp() {
     let op = operations[index];
     // console.log(op);
     if (op == "COUNT") {
-      //   let entitiesName = getEntitiesName(operations, index);
-      //   //   console.log("entitiesName", entitiesName);
-      //   let propertyName = operations[index + 1];
-      //   let entitiesObj = require(appRootPath + "/temp/" + entitiesName);
-      //   op_count(entitiesObj, propertyName);
-      //   utilities.saveToTemp(entitiesObj, entitiesName);
+      let entitiesName = getEntitiesName(operations, index);
+      //   console.log("entitiesName", entitiesName);
+      let propertyName = operations[index + 1];
+      let entitiesObj = require(appRootPath + "/temp/" + entitiesName);
+      op_count(entitiesObj, propertyName);
+      utilities.saveToTemp(entitiesObj, entitiesName);
     } else if (op == "SUM") {
       let superordinate = "itemEntities";
       if (index > 0) {
@@ -50,8 +50,9 @@ function generateNewProp() {
         // console.log(entity["label"]);
         // console.log(entity["claims"][subordinate]);
         let sum = 0;
-        entity["claims"][subordinate]["values"].forEach(value => {
-          let id = value["value"];
+        // entity["claims"][subordinate]["values"].forEach(value => {
+        entity["claims"][subordinate].forEach(value => {
+          let id = value;
           //   console.log(subordinateObj[id]);
           //   console.log(subordinateObj[id]);
           //   console.log(subordinateObj[id][propertyName]);
@@ -90,7 +91,8 @@ function op_count(entitiesObj, property) {
     console.log("entity,", entity["label"]);
     let count = 0;
     if (entity["claims"][property]) {
-      count = entity["claims"][property]["values"].length;
+      // count = entity["claims"][property]["values"].length;
+      count = entity["claims"][property].length;
     }
 
     let newProp = "COUNT_" + property;

@@ -8,13 +8,27 @@ function getOtherEntities(entitiesObj, property, name) {
   entities.forEach(entity => {
     let claims = entity["claims"];
     if (claims[property]) {
-      let values = claims[property]["values"];
+      // let values = claims[property]["values"];
+      let values = claims[property];
       // values[0]["datatype"]
       values.forEach(value => {
-        property_values_set.add(value["value"]);
+        // property_values_set.add(value["value"]);
+        property_values_set.add(value);
       });
     }
   });
+
+  // legacy
+  // entities.forEach(entity => {
+  //   let claims = entity["claims"];
+  //   if (claims[property]) {
+  //     let values = claims[property]["values"];
+  //     // values[0]["datatype"]
+  //     values.forEach(value => {
+  //       property_values_set.add(value["value"]);
+  //     });
+  //   }
+  // });
 
   let ids = Array.from(property_values_set);
   console.log("ids are: ", ids);

@@ -1,36 +1,48 @@
 // get entity by id from wikidata. This will fetch everything for the id in wikidata
 
-// NOTE: there seem to be a limit of number of ids like 200?
-import { getEntities } from "wiki-entity";
+// https://github.com/maxlath/wikibase-sdk/blob/master/docs/get_entities.md#get-many-entities-by-ids
 
+const wbk = require("wikibase-sdk")({
+  instance: "https://www.wikidata.org",
+  sparqlEndpoint: "https://query.wikidata.org/sparql"
+});
+const fetch = require("node-fetch");
 const appRootPath = require("app-root-path");
+
 const utilities = require(appRootPath + "/utilities");
 
 function getEntitiesByIds(ids, name) {
-  // let ids = null;
-  // if (store.testJob2) {
-  //   ids = ["Q163872", "Q104123", "Q172241"];
-  // } else {
-  //   let map = store.map_item_to_id;
-  //   for (let [item, id] of map.entries()) {
-  //     ids.push(id); // ids length less than 500
-  //   }
-  // }
-  // let main_entities = store.main_entities;
+  // each element of urls contains multiple (50 at most) ids
+  const urls = wbk.getManyEntities({
+    ids: ids,
+    languages: ["en"],
+    props: ["info", "labels", "claims"],
+    format: "json",
+    redirections: false // defaults to true
+  });
+
   let itemEntities = {};
-  let promise = new Promise((fullfill, reject) => {
-    getEntities({ language: "en", ids }).then(entities => {
-      entities.forEach(entity => {
-        delete entity["sitelinks"];
-        let id = entity["id"];
-        // map_id_to_entity.set(id, entity);
-        itemEntities[id] = entity;
+  let chain = Promise.resolve();
+  urls.forEach(url => {
+    // console.log("url");
+    chain = chain.then(() => {
+      console.log("chain");
+      return new Promise((fullfill, reject) => {
+        fetch(url)
+          .then(response => response.json())
+          .then(wbk.parse.wd.entities)
+          .then(entitiesObj => {
+            for (let [key, value] of Object.entries(entitiesObj)) {
+              itemEntities[key] = value;
+            }
+            fullfill();
+          });
       });
-      // console.log(map_id_to_entity);
-      utilities.saveToTemp(itemEntities, name);
-      fullfill();
     });
   });
-  return promise;
+  chain.then(() => {
+    utilities.saveToTemp(itemEntities, name);
+  });
+  return chain;
 }
 module.exports = getEntitiesByIds;
