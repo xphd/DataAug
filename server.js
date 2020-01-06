@@ -18,13 +18,13 @@ async function go() {
   console.log("Task 2 begin");
   await job2.getItemEntities(store);
   console.log("Task 2 end");
-  console.log("Task 3 begin");
-  await job3.getItemPropertyEntities(store);
-  console.log("Task 3 end");
-  console.log("Task 4 begin");
-  await job4.generateNewProp(store);
-  console.log("Task 4 end");
-  console.log("Task 5 begin");
-  await job5.translate(store);
-  console.log("Task 5 end");
+  // console.log("Task 3 begin");
+  // await job3.getItemPropertyEntities(store);
+  // console.log("Task 3 end");
+  // console.log("Task 4 begin");
+  // await job4.generateNewProp(store);
+  // console.log("Task 4 end");
+  // console.log("Task 5 begin");
+  // await job5.translate(store);
+  // console.log("Task 5 end");
 }

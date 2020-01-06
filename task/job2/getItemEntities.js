@@ -3,7 +3,9 @@ const fs = require("fs");
 const appRootPath = require("app-root-path");
 const PATH = appRootPath + "/temp/items_ids.json";
 function getItemEntities(store) {
+  console.log(PATH);
   let jsonContent = fs.readFileSync(PATH);
+  console.log(jsonContent);
   let items_ids = JSON.parse(jsonContent);
   let ids = Object.values(items_ids);
   let promise = getEntitiesByIds(ids, "itemEntities");

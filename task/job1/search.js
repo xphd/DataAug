@@ -13,6 +13,7 @@ function search(store) {
     });
   });
   chain.then(() => {
+    // console.log("last chain");
     utilities.saveToTemp(store.items_ids, "items_ids");
   });
   return chain;

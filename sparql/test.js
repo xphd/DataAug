@@ -2,17 +2,20 @@
 const wbk = require("wikibase-sdk")({
   instance: "https://www.wikidata.org",
   // sparqlEndpoint: "https://query.wikidata.org/sparql"
-  sparqlEndpoint: "https://dsbox02.isi.edu:8888/sparql"
+  sparqlEndpoint: "http://dsbox02.isi.edu:8888/bigdata/namespace/wdq/sparql"
 });
 // const fetch = require("node-fetch");
 // const rp = require("request-promise");
 
 const sparql = `
-  SELECT ?item ?itemLabel
-  WHERE { 
-    ?item rdfs:label ?itemLabel. 
-    FILTER(CONTAINS(LCASE(?itemLabel), "city"@en)). 
-  } limit 10
+SELECT distinct ?item ?itemLabel ?itemDescription WHERE{  
+  ?item ?label "Mozambique"@en.  
+  ?item wdt:P31 wd:Q6256 .
+  ?article schema:about ?item .
+  ?article schema:inLanguage "en" .
+  ?article schema:isPartOf <https://en.wikipedia.org/>. 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }    
+}
   `;
 const url = wbk.sparqlQuery(sparql);
 
@@ -36,6 +39,7 @@ const axios = require("axios");
 axios
   .get(url)
   .then(response => {
+    // console.log(response);
     console.log(response["data"]["results"]["bindings"]);
     // console.log(response.data.url);
     // console.log(response.data.explanation);

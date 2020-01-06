@@ -20,11 +20,12 @@ function getEntitiesByIds(ids, name) {
     format: "json",
     redirections: false // defaults to true
   });
+  console.log(urls);
 
   let itemEntities = {};
   let chain = Promise.resolve();
   urls.forEach(url => {
-    // console.log("url");
+    console.log("url", url);
     chain = chain.then(() => {
       console.log("chain");
       return new Promise((fullfill, reject) => {
