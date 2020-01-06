@@ -1,3 +1,8 @@
+/*
+"search" is to create a promise chain
+and finally save the items_ids to static in /temp
+*/
+
 const appRootPath = require("app-root-path");
 const utilities = require(appRootPath + "/utilities");
 const wikiSearch = require("./wikiSearch.js");
@@ -8,7 +13,7 @@ function search(store) {
   items.forEach(item => {
     chain = chain.then(() => {
       return new Promise((fullfill, reject) => {
-        wikiSearch(store, item, fullfill, reject);
+        wikiSearch(item, store, fullfill, reject);
       });
     });
   });

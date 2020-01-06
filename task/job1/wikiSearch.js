@@ -1,52 +1,49 @@
-const rp = require("request-promise");
+/*
+wikiSearch, using "wikibase-sda" package, search the ids given items name 
+*/
+
+const axios = require("axios");
 const wbk = require("wikibase-sdk")({
-  instance: "https://www.wikidata.org",
-  sparqlEndpoint: "https://query.wikidata.org/sparql"
+  instance: "https://www.wikidata.org", // not used
+  sparqlEndpoint: "http://dsbox02.isi.edu:8888/bigdata/namespace/wdq/sparql"
 });
 
-// const language = "en"; // will default to 'en'
-// const limit = 5; // defaults to 20
-// const format = "json"; // defaults to json
-
-function wikiSearch(store, item, fullfill, reject) {
+function wikiSearch(item, store, fullfill, reject) {
   let key_word = store.key_word;
   let items_ids = store.items_ids;
 
-  // let search = item;
-  // const url = wbk.searchEntities(search, language, limit, format);
-  let url = wbk.searchEntities(item, "en", 5, "json");
-  console.log(url);
+  const sparql = `
+  SELECT distinct ?item ?itemLabel ?itemDescription WHERE{  
+    ?item ?label "${item}"@en.      
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }    
+  }
+  `;
 
-  let requestOptions = {
-    uri: url,
-    method: "GET",
-    json: true
-  };
+  const url = wbk.sparqlQuery(sparql);
+  // console.log(url);
 
-  rp(requestOptions)
-    .then(function(response) {
-      let results = response["search"];
-      let id = "";
-      for (let i = 0; i < results.length; i++) {
-        let result = results[i];
-        // console.log(result);
-        let description = result["description"];
-        // console.log("description", description);
-        if (description && description.includes(key_word)) {
-          id = result["id"];
-          // console.log("description", description);
-          break;
+  axios
+    .get(url)
+    .then(response => {
+      let qid = "";
+      let bindings = response["data"]["results"]["bindings"];
+      bindings.forEach(binding => {
+        let itemDescription = binding["itemDescription"];
+        if (itemDescription) {
+          let value = itemDescription["value"];
+          if (value.includes(key_word)) {
+            let uri = binding["item"]["value"];
+            let index = uri.lastIndexOf("/");
+            qid = uri.substring(index + 1);
+            // console.log(qid);
+          }
         }
-      }
-      // let id = response["search"][0]["id"];
-      // console.log(id);
-      // map.set(item, id);
-      items_ids[item] = id;
+      });
+      items_ids[item] = qid;
       fullfill();
     })
-    .catch(function(err) {
-      // API call failed...
-      reject(err);
+    .catch(error => {
+      console.log(error);
     });
 }
 
