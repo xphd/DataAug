@@ -1,2 +1,2 @@
-exports.getItemPropertyEntities = require("./getItemPropertyEntities.js");
-exports.getOtherEntities = require("./getOtherEntities.js");
+exports.loadPropertyLabel = require("./loadPropertyLabel.js");
+exports.getPropertyId = require("./getPropertyId.js");

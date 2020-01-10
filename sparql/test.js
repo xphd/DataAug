@@ -7,13 +7,11 @@ const wbk = require("wikibase-sdk")({
 // const fetch = require("node-fetch");
 // const rp = require("request-promise");
 
+let item = "The Dark Knight";
+
 const sparql = `
 SELECT distinct ?item ?itemLabel ?itemDescription WHERE{  
-  ?item ?label "Mozambique"@en.  
-  ?item wdt:P31 wd:Q6256 .
-  ?article schema:about ?item .
-  ?article schema:inLanguage "en" .
-  ?article schema:isPartOf <https://en.wikipedia.org/>. 
+  ?item ?label "${item}"@en.   
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }    
 }
   `;
@@ -35,12 +33,29 @@ console.log(url);
 // });
 
 const axios = require("axios");
-
+let key_word = "film";
 axios
   .get(url)
   .then(response => {
     // console.log(response);
-    console.log(response["data"]["results"]["bindings"]);
+    // console.log(response["data"]["results"]["bindings"]);
+    let bindings = response["data"]["results"]["bindings"];
+    bindings.forEach(binding => {
+      let itemDescription = binding["itemDescription"];
+      if (itemDescription) {
+        let value = itemDescription["value"];
+        // console.log(value);
+        if (value.includes(key_word)) {
+          let uri = binding["item"]["value"];
+          let index = uri.lastIndexOf("/");
+          let qid = uri.substring(index + 1);
+          console.log(qid);
+        }
+      } else {
+        // console.log("null itemDescription");
+      }
+    });
+
     // console.log(response.data.url);
     // console.log(response.data.explanation);
   })

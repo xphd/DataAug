@@ -1,24 +1,29 @@
 // central, hub, bus, shared variables
 const store = {
-  isDev: true,
+  isDev: false,
   testJob1: false,
   testJob2: true,
   testJob3: false,
 
   col_selected: "title",
+
   key_word: "film", // could be used to filter searching results
 
-  items: ["The Dark Knight", "Pulp Fiction", "The Shawshank Redemption"], // [], names to search, obtained from the input CSV file
+  labels: ["The Dark Knight", "Pulp Fiction", "The Shawshank Redemption"], // [], names to search, obtained from the input CSV file
 
-  items_ids: {}, // {}, results from task 1, map items to wiki-ids
+  label_qid: {}, // {}, results from task 1, map items to wiki-ids
+  //
+  commonProperties: [],
+  property_pid: {},
 
-  ids_entities: {}, //new Map(), // results from task 2
+  qid_label: {},
+  pid_property: {},
 
-  ids_properties: {},
+  qid_property: {},
 
-  map_propertyId_to_entityIds: new Map(), // results from task 3
+  items: {},
 
-  csvFilePath: "./input/imdb_10.csv",
+  inputFilePath: "./input/imdb_10.csv",
   //   originalData: null,
   headers: null,
   selectColumn: null

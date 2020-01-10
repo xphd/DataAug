@@ -1,62 +1,83 @@
-const fs = require("fs");
-const csvjson = require("csvjson");
+// get entity by id from wikidata. This will fetch everything for the id in wikidata
+
+// https://github.com/maxlath/wikibase-sdk/blob/master/docs/get_entities.md#get-many-entities-by-ids
+
+const store = require("./store.js");
+
+const wbk = require("wikibase-sdk")({
+  instance: "https://www.wikidata.org",
+  sparqlEndpoint: "http://dsbox02.isi.edu:8888/bigdata/namespace/wdq/sparql"
+});
+const fetch = require("node-fetch");
 const appRootPath = require("app-root-path");
 
-const store = require("../store/store.js");
-const utilities = require("../utilities");
+const utilities = require(appRootPath + "/utilities");
 
-const job1 = require("../task/job1");
-const job2 = require("../task/job2");
-const job3 = require("../task/job3");
-const job4 = require("../task/job4");
-const job5 = require("../task/job5");
+function getRelatedAttributes(colmn_name) {
+  // get item to search from csv
+  let items = store.items;
+  let csvFilePath = store.csvFilePath;
 
-// input: column_name - a string corresponding to a column name in a dataset that is being looked at in d3m.  The backend will have to translate this to a wikidata "entity_type" (instance_of 'movie', the Q146 in the following SPARQL)
+  let data = fs.readFileSync(csvFilePath, { encoding: "utf8" });
+  let options = {
+    delimiter: ",", // optional
+    quote: '"' // optional
+  };
+  let objs = csvjson.toObject(data, options);
+  objs.forEach(obj => {
+    let col_name = obj[colmn_name];
+    items.push(col_name);
+  });
 
-// output:joinableAttributes: A JSON object where the keys are the features of the passed in dataset, and the values are collections of joinable attributes.
-async function getRelatedAttributes(column_name) {
-  store.col_selected = column_name;
-  utilities.preprocess(store);
+  // get id from name
+  let items = store.items;
+  let chain = Promise.resolve();
+  items.forEach(item => {
+    chain = chain.then(() => {
+      return new Promise((fullfill, reject) => {
+        wikiSearch(item, store, fullfill, reject);
+      });
+    });
+  });
+  chain.then(() => {
+    // console.log("last chain");
+    utilities.saveToTemp(store.items_ids, "items_ids");
+  });
+  //
 
-  console.log("Job 1 begin");
-  await job1.search(store);
-  console.log("Job 1 end");
+  //
 
-  console.log("Task 2 begin");
-  await job2.getItemEntities(store);
-  console.log("Task 2 end");
+  const urls = wbk.getManyEntities({
+    ids: ids,
+    languages: ["en"],
+    props: ["info", "labels", "claims"],
+    format: "json",
+    redirections: false // defaults to true
+  });
+  console.log(urls);
 
-  // go();
-  const PATH = appRootPath + "/temp/itemEntities.json";
-  let jsonContent = fs.readFileSync(PATH);
-  let itemEntities = JSON.parse(jsonContent);
-  let attributes = retriveAttributes(itemEntities);
-
-  console.log(attributes);
-
-  return attributes;
+  let itemEntities = {};
+  let chain = Promise.resolve();
+  urls.forEach(url => {
+    console.log("url", url);
+    chain = chain.then(() => {
+      console.log("chain");
+      return new Promise((fullfill, reject) => {
+        fetch(url)
+          .then(response => response.json())
+          .then(wbk.parse.wd.entities)
+          .then(entitiesObj => {
+            for (let [key, value] of Object.entries(entitiesObj)) {
+              itemEntities[key] = value;
+            }
+            fullfill();
+          });
+      });
+    });
+  });
+  chain.then(() => {
+    utilities.saveToTemp(itemEntities, name);
+  });
+  return chain;
 }
-
-function retriveAttributes(entitiesObj) {
-  let entities = Object.values(entitiesObj);
-  let firstEntity = entities[0];
-  let claims = firstEntity["claims"];
-  let attributes = {};
-  for (let [key, value] of Object.entries(claims)) {
-    attributes[key] = { type: "collection", validOps: ["count", "join"] };
-  }
-  return attributes;
-}
-
-// async function go() {
-//   console.log("Job 1 begin");
-//   await job1.search(store);
-//   console.log("Job 1 end");
-
-//   console.log("Task 2 begin");
-//   await job2.getItemEntities(store);
-//   console.log("Task 2 end");
-
-// }
-
-module.exports = getRelatedAttributes;
+module.exports = getEntitiesByIds;

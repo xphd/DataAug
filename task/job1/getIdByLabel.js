@@ -1,5 +1,5 @@
 /*
-wikiSearch, using "wikibase-sda" package, search the ids given items name 
+getIdByLabel, using "wikibase-sdk" package, search the ids given items name 
 */
 
 const axios = require("axios");
@@ -8,20 +8,17 @@ const wbk = require("wikibase-sdk")({
   sparqlEndpoint: "http://dsbox02.isi.edu:8888/bigdata/namespace/wdq/sparql"
 });
 
-function wikiSearch(item, store, fullfill, reject) {
+function getIdByLabel(label, store, fullfill, reject) {
   let key_word = store.key_word;
-  let items_ids = store.items_ids;
-
-  const sparql = `
+  let label_qid = store.label_qid;
+  let qid_label = store.qid_label;
+  let items = store.items;
+  const sparqlQuery = `
   SELECT distinct ?item ?itemLabel ?itemDescription WHERE{  
-    ?item ?label "${item}"@en.      
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }    
-  }
+    ?item ?label "${label}"@en.      
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } } 
   `;
-
-  const url = wbk.sparqlQuery(sparql);
-  // console.log(url);
-
+  const url = wbk.sparqlQuery(sparqlQuery);
   axios
     .get(url)
     .then(response => {
@@ -35,11 +32,12 @@ function wikiSearch(item, store, fullfill, reject) {
             let uri = binding["item"]["value"];
             let index = uri.lastIndexOf("/");
             qid = uri.substring(index + 1);
-            // console.log(qid);
           }
         }
       });
-      items_ids[item] = qid;
+      label_qid[label] = qid;
+      qid_label[qid] = label;
+      items[qid] = {};
       fullfill();
     })
     .catch(error => {
@@ -47,4 +45,4 @@ function wikiSearch(item, store, fullfill, reject) {
     });
 }
 
-module.exports = wikiSearch;
+module.exports = getIdByLabel;

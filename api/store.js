@@ -1,6 +1,6 @@
 // central, hub, bus, shared variables
 const store = {
-  col_selected: "title",
+  // col_selected: "title",
   key_word: "film", // could be used to filter searching results
 
   items: ["The Dark Knight", "Pulp Fiction", "The Shawshank Redemption"], // [], names to search, obtained from the input CSV file
