@@ -20,6 +20,7 @@ function preprocess(store) {
       let col_name = obj[col_selected];
       labels.push(col_name);
     });
+    store.labels = labels;
   }
   console.log(store.labels);
   console.log("preprocess end <======");
