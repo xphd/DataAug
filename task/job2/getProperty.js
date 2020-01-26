@@ -1,16 +1,18 @@
 const fs = require("fs");
 const appRootPath = require("app-root-path");
 
-const getCommonProperties = require("./getCommonProperties");
+const getCommonPropertyLabels = require("./getCommonPropertyLabels");
+// const getPidByLabel = require("../job3/getPidByLabel.js/index.js");
 const PATH = appRootPath + "/temp/items.json";
 
-function getProperty(store) {
+async function getProperty(store) {
   let jsonContent = fs.readFileSync(PATH);
-  let label_qid = JSON.parse(jsonContent);
-
-  let qids = Object.keys(label_qid);
+  let items = JSON.parse(jsonContent);
+  store.items = items;
+  let qids = Object.keys(items);
   // console.log(qids);
-  getCommonProperties(qids, store);
+  let chain = getCommonPropertyLabels(qids);
+  return chain;
 }
 
 module.exports = getProperty;

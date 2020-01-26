@@ -1,14 +1,14 @@
 const fs = require("fs");
 const csvjson = require("csvjson");
 
-function preprocess(store) {
-  let labels = store.labels;
-  let inputFilePath = store.inputFilePath;
-  let col_selected = store.col_selected;
+function preprocess(store, inputFilePath, columnSelected) {
+  let itemLabels = store.itemLabels;
+  // let inputFilePath = store.inputFilePath;
+  // let col_selected = store.col_selected;
 
   console.log("======> preprocess begin");
   if (!store.isDev) {
-    lables = [];
+    itemLabels = [];
     console.log("Read from:", inputFilePath);
     let data = fs.readFileSync(inputFilePath, { encoding: "utf8" });
     let options = {
@@ -17,12 +17,11 @@ function preprocess(store) {
     };
     let objs = csvjson.toObject(data, options);
     objs.forEach(obj => {
-      let col_name = obj[col_selected];
-      labels.push(col_name);
+      let label = obj[columnSelected];
+      itemLabels.push(label);
     });
-    store.labels = labels;
+    store.itemLabels = itemLabels;
   }
-  console.log(store.labels);
   console.log("preprocess end <======");
 }
 

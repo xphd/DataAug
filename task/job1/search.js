@@ -9,19 +9,20 @@ const getIdByLabel = require("./getIdByLabel.js");
 const utilities = require(appRootPath + "/utilities");
 
 function search(store) {
-  let labels = store.labels;
+  let itemLabels = store.itemLabels;
+  let keyWord = store.keyWord;
   let chain = Promise.resolve();
-  labels.forEach(label => {
+  itemLabels.forEach(itemLabel => {
     chain = chain.then(() => {
       return new Promise((fullfill, reject) => {
-        getIdByLabel(label, store, fullfill, reject);
+        getIdByLabel(itemLabel, keyWord, store, fullfill, reject);
       });
     });
   });
   chain.then(() => {
     // console.log("last chain");
     utilities.saveToTemp(store.label_qid, "label_qid");
-    utilities.saveToTemp(store.qid_label, "qid_label");
+    // utilities.saveToTemp(store.qid_label, "qid_label");
     utilities.saveToTemp(store.items, "items");
   });
   return chain;

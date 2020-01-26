@@ -6,10 +6,10 @@ const wbk = require("wikibase-sdk")({
 
 // const appRootPath = require("app-root-path");
 
-function getPropertyId(propertyLabel, store, fullfill, reject) {
+function getPidByLabel(propertyLabel, store, fullfill, reject) {
   // console.log(propertyLabel);
   let pid_property = store.pid_property;
-  let property_pid = store.property_pid;
+  // let property_pid = store.property_pid;
   // let propertyLabel = "based on";
 
   const sparql = `
@@ -37,7 +37,7 @@ function getPropertyId(propertyLabel, store, fullfill, reject) {
             if (pid.startsWith("P")) {
               console.log(pid);
               pid_property[pid] = propertyLabel;
-              property_pid[propertyLabel] = pid;
+              // property_pid[propertyLabel] = pid;
             }
           }
         }
@@ -50,4 +50,4 @@ function getPropertyId(propertyLabel, store, fullfill, reject) {
     });
 }
 
-module.exports = getPropertyId;
+module.exports = getPidByLabel;
