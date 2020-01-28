@@ -1,0 +1,155 @@
+{
+  "Q172241": {
+    "label": "The Shawshank Redemption",
+    "P136": {
+      "label": "genre",
+      "value": ["Q130232", "Q586250", "Q663106", "Q959790", "Q52162262"]
+    },
+    "P162": { "label": "producer", "value": ["Q7034951"] },
+    "P31": { "label": "instance of", "value": ["Q11424"] },
+    "P2047": { "label": "duration", "value": ["142"] },
+    "P577": {
+      "label": "publication date",
+      "value": [
+        "1994-09-10T00:00:00Z",
+        "1994-09-23T00:00:00Z",
+        "1995-03-09T00:00:00Z"
+      ]
+    }
+  },
+  "Q47703": {
+    "label": "The Godfather",
+    "P136": {
+      "label": "genre",
+      "value": ["Q130232", "Q959790", "Q7444356", "Q52162262"]
+    },
+    "P162": { "label": "producer", "value": ["Q280490"] },
+    "P31": { "label": "instance of", "value": ["Q11424"] },
+    "P2047": { "label": "duration", "value": ["175"] },
+    "P577": {
+      "label": "publication date",
+      "value": [
+        "1972-03-15T00:00:00Z",
+        "1972-08-24T00:00:00Z",
+        "1972-09-27T00:00:00Z"
+      ]
+    }
+  },
+  "Q163872": {
+    "label": "Batman",
+    "P136": {
+      "label": "genre",
+      "value": [
+        "Q130232",
+        "Q182015",
+        "Q188473",
+        "Q959790",
+        "Q1535153",
+        "Q2421031",
+        "Q19367312"
+      ]
+    },
+    "P162": { "label": "producer", "value": ["Q25191", "Q242951", "Q2740357"] },
+    "P31": { "label": "instance of", "value": ["Q11424"] },
+    "P2047": { "label": "duration", "value": ["153"] },
+    "P577": {
+      "label": "publication date",
+      "value": [
+        "2008-07-18T00:00:00Z",
+        "2008-07-25T00:00:00Z",
+        "2008-08-13T00:00:00Z",
+        "2008-08-21T00:00:00Z"
+      ]
+    }
+  },
+  "Q104123": {
+    "label": "Pulp Fiction",
+    "P136": {
+      "label": "genre",
+      "value": ["Q130232", "Q459290", "Q2484376", "Q7444356"]
+    },
+    "P162": { "label": "producer", "value": ["Q514913"] },
+    "P31": { "label": "instance of", "value": ["Q11424"] },
+    "P2047": { "label": "duration", "value": ["154"] },
+    "P577": {
+      "label": "publication date",
+      "value": [
+        "1994-05-21T00:00:00Z",
+        "1994-10-14T00:00:00Z",
+        "1994-11-03T00:00:00Z"
+      ]
+    }
+  },
+  "Q2345": {
+    "label": "Twelve Angry Men",
+    "P136": { "label": "genre", "value": ["Q130232", "Q3072039", "Q21209409"] },
+    "P162": { "label": "producer", "value": ["Q19155", "Q1934890"] },
+    "P31": { "label": "instance of", "value": ["Q11424"] },
+    "P2047": { "label": "duration", "value": ["95", "96"] },
+    "P577": {
+      "label": "publication date",
+      "value": [
+        "1957-04-10T00:00:00Z",
+        "1957-07-29T00:00:00Z",
+        "1957-09-04T00:00:00Z",
+        "1958-10-10T00:00:00Z"
+      ]
+    }
+  },
+  "Q41483": {
+    "label": "The Good, the Bad and the Ugly",
+    "P136": { "label": "genre", "value": ["Q212781", "Q369747", "Q22981906"] },
+    "P162": { "label": "producer", "value": ["Q579172"] },
+    "P31": { "label": "instance of", "value": ["Q11424"] },
+    "P2047": { "label": "duration", "value": ["178"] },
+    "P577": { "label": "publication date", "value": ["1966-12-23T00:00:00Z"] }
+  },
+  "Q131074": {
+    "label": "The Lord of the Rings: The Return of the King",
+    "P136": {
+      "label": "genre",
+      "value": ["Q130232", "Q157394", "Q188473", "Q52162262"]
+    },
+    "P162": { "label": "producer", "value": ["Q4465", "Q116861", "Q808917"] },
+    "P31": { "label": "instance of", "value": ["Q11424"] },
+    "P2047": { "label": "duration", "value": ["201"] },
+    "P577": {
+      "label": "publication date",
+      "value": [
+        "2003-12-01T00:00:00Z",
+        "2003-12-17T00:00:00Z",
+        "2003-12-25T00:00:00Z"
+      ]
+    }
+  },
+  "Q1137740": {
+    "label": "Schindler's Ark",
+    "P136": { "label": "genre", "value": ["Q217199"] },
+    "P162": { "label": "producer", "value": ["Q131285"] },
+    "P31": { "label": "instance of", "value": ["Q482994"] },
+    "P2047": { "label": "duration", "value": ["3875"] },
+    "P577": { "label": "publication date", "value": ["1994-01-01T00:00:00Z"] }
+  },
+  "Q190050": {
+    "label": "Fight Club",
+    "P136": {
+      "label": "genre",
+      "value": [
+        "Q130232",
+        "Q182015",
+        "Q188473",
+        "Q2484376",
+        "Q21010853",
+        "Q21401869",
+        "Q52162262"
+      ]
+    },
+    "P162": { "label": "producer", "value": ["Q705631", "Q961183"] },
+    "P31": { "label": "instance of", "value": ["Q11424"] },
+    "P2047": { "label": "duration", "value": ["139"] },
+    "P577": {
+      "label": "publication date",
+      "value": ["1999-10-15T00:00:00Z", "1999-11-11T00:00:00Z"]
+    }
+  }
+}

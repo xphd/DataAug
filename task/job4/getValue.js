@@ -4,10 +4,8 @@ const wbk = require("wikibase-sdk")({
   sparqlEndpoint: "http://dsbox02.isi.edu:8888/bigdata/namespace/wdq/sparql"
 });
 
-function getValue(qid, pid, store, fullfill, reject) {
+function getValue(qid, pid, pid_property, store, fullfill, reject) {
   let items = store.items;
-  // let qid = "Q163872";
-  // let pid = "P161";
   let sparql = `
         SELECT ?value WHERE {
             wd:${qid} wdt:${pid} ?value 
@@ -35,7 +33,7 @@ function getValue(qid, pid, store, fullfill, reject) {
           }
         }
       });
-      items[qid][pid] = value_qids;
+      items[qid][pid] = { label: pid_property[pid], value: value_qids };
       console.log(qid, pid, value_qids);
       fullfill();
     })

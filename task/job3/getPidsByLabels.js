@@ -21,7 +21,7 @@ function getPidsByLabels(store) {
   }
 
   chain.then(() => {
-    // utilities.saveToTemp(store.property_pid, "property_pid");
+    utilities.saveToTemp(store.property_pid, "property_pid");
     utilities.saveToTemp(store.pid_property, "pid_property");
   });
   return chain;

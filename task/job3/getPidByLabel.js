@@ -9,7 +9,7 @@ const wbk = require("wikibase-sdk")({
 function getPidByLabel(propertyLabel, store, fullfill, reject) {
   // console.log(propertyLabel);
   let pid_property = store.pid_property;
-  // let property_pid = store.property_pid;
+  let property_pid = store.property_pid;
   // let propertyLabel = "based on";
 
   const sparql = `
@@ -37,7 +37,7 @@ function getPidByLabel(propertyLabel, store, fullfill, reject) {
             if (pid.startsWith("P")) {
               console.log(pid);
               pid_property[pid] = propertyLabel;
-              // property_pid[propertyLabel] = pid;
+              property_pid[propertyLabel] = pid;
             }
           }
         }

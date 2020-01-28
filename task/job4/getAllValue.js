@@ -3,9 +3,11 @@ const appRootPath = require("app-root-path");
 
 const itemPATH = appRootPath + "/temp/items.json";
 
-const propertyPATH = appRootPath + "/temp/commonProperties.json";
+const propertyPATH = appRootPath + "/temp/commonPropertyLabels.json";
 
 const property_pid = require(appRootPath + "/temp/property_pid.json");
+
+const pid_property = require(appRootPath + "/temp/pid_property.json");
 
 const utilities = require(appRootPath + "/utilities");
 
@@ -36,7 +38,7 @@ function getAllValue(store) {
       //   console.log(pid);
       chain = chain.then(() => {
         return new Promise((fullfill, reject) => {
-          getValue(qid, pid, store, fullfill, reject);
+          getValue(qid, pid, pid_property, store, fullfill, reject);
         });
       });
     }
